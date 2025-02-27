@@ -12,9 +12,9 @@ public class UserServiceImp implements UserService {
     UsersMapper usersMapper;
 
     @Override
-    public int signUp(Users user) {
+    public boolean signUp(Users user) {
 
-        return usersMapper.insert(user);
+        return usersMapper.insert(user)>0;
     }
 
     @Override

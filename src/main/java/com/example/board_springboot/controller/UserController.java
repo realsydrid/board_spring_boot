@@ -26,16 +26,10 @@ public class UserController {
 
     @PostMapping("signUp.do")
     public String signUp(Model model,
-                         @RequestParam String userId,
-                         @RequestParam String userName,
-                         @RequestParam String phoneNo,
-                         @RequestParam String password
+                         Users user
                          ) {
-        Users user = new Users();
-        user.setUserId(userId);
-        user.setUserName(userName);
-        user.setPhoneNo(phoneNo);
-        user.setPassword(password);
+
+
         userServiceImp.signUp(user);
 
         return "user/signUp";
