@@ -42,6 +42,7 @@ public class UserController {
 
     @PostMapping("login.do")
     public String login(Model model, String userId, String password) {
+
         boolean login = userServiceImp.login(userId, password);
         if (login) {
             System.out.println("로그인성공");

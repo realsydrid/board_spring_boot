@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html lang="kr">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/default :: html(content=~{::body})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div th:replace="~{header :: headerFragment}"></div>
-<h1>회원가입</h1>
+<div class="container mt-5">
+<h1 class="pt-1">회원가입</h1>
 
 <form action="signUp.do" method="post">
-  <p><label>아이디 <input type="text" name="userId"></label></p>
-  <p><label>이름 <input type="text" name="userName"></label></p>
-  <p><label>비밀번호 <input type="text" name="password"></label></p>
-  <p><label>휴대전화 <input type="text" name="phoneNo"></label></p>
-  <button type="submit">제출</button>
+    <div class="form-floating mb-3">
+        <input type="text" name="userId" class="form-control" id="userId" placeholder="아이디">
+        <label for="userId">아이디</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" name="userName" class="form-control" id="userName" placeholder="이름">
+        <label for="userName">이름</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" name="password" class="form-control" id="password" placeholder="이름">
+        <label for="password">비밀번호</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" name="phoneNo" class="form-control" id="phoneNo" placeholder="이름">
+        <label for="phoneNo">휴대전화</label>
+    </div>
+  <button class="btn btn-success" type="submit">가입하기</button>
 
 </form>
+
+</div>
 </body>
 </html>
