@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<div th:replace="~{header :: headerFragment}"></div>
+
+<form action="./login.do" method="post">
+<!--    <p><label>아이디<input type="text" name="user_id" value="${rememberedId}"></label></p>-->
+    <p><label>아이디<input type="text" name="userId"></label></p>
+    <p><label>비밀번호<input type="password" name="password"></label></p>
+    <div><button>로그인</button><a href="./signUp.do">회원가입</a></div>
+    <p>
+        <label>
+            아이디기억하기<input type="checkbox" value="1" name="remember_id">
+        </label>
+        <label>
+            자동로그인<input type="checkbox" value="1" name="auto_login">
+        </label>
+    </p>
+
+</form>
+
+</body>
+</html>

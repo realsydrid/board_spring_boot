@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+</head>
+<body>
+<div th:replace="~{header :: headerFragment}"></div>
+<h1>자유게시판</h1>
+<table>
+  <thead>
+  <tr>
+    <th>글번호</th>
+    <th>글제목</th>
+    <th>작성자</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each=" b: ${boardsList}">
+    <td th:text="${b.boardId}">1</td>
+    <td th:text="${b.title}"><a href="#">제목</a></td>
+    <td th:text="${b.userName}">작성자</td>
+    <td th:text="${b.createdAt}">작성일</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

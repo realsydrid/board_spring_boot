@@ -1,0 +1,20 @@
+
+
+<header th:fragment="headerFragment"
+        style="background-color: aquamarine; width: 100%; font-size: 20px; display: flex; justify-content: space-between; align-content: center;align-items: center;">
+
+    <p><a href="index.html">HOME</a></p>
+    <div>
+<!--        <%-->
+<!--        if(login!=null && login.equals(true)){-->
+<!--        %>-->
+
+<!--        <p><%= user_name%>님 접속중 <a href="./passwordModify.jsp">비밀번호 변경하기</a> <a href="./logout.do">로그아웃</a></p>-->
+<!--        <%}else {%>-->
+
+        <a th:href="@{/user/login.do}">로그인</a>
+        <a th:href="@{/user/signUp.do}">회원가입</a>
+<!--        <%}%>-->
+    </div>
+
+</header>

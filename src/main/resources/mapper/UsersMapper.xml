@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board_springboot.mapper.UsersMapper">
+  <resultMap id="UserMap" type="com.example.board_springboot.model.Users">
+    <id column="user_no" jdbcType="INTEGER" property="userNo" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+  </resultMap>
+   <insert id="insert" keyColumn="user_no" keyProperty="userNo" parameterType="com.example.board_springboot.model.Users" useGeneratedKeys="true">
+    insert into users (user_id, user_name, `password`, 
+      phone_no)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phoneNo,jdbcType=VARCHAR})
+  </insert>
+  <select id="findByUserId" resultMap="UserMap">
+      select * from users where user_id=#{user_id}
+  </select>
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board_springboot.mapper.BoardsMapper">
+  <resultMap id="BoardMap" type="com.example.board_springboot.model.Boards">
+    <id column="board_id" jdbcType="INTEGER" property="boardId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="user_no" jdbcType="INTEGER" property="userNo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <select id="findAllBoards" resultMap="BoardMap">
+SELECT * FROM boards
+
+  </select>
+
+</mapper>
