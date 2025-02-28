@@ -14,7 +14,7 @@
             <div class="flex-grow-1">
                 <h5 class="mb-1 text-truncate" style="max-width: 300px;" th:text="${b.title}">게시글 제목</h5>
                 <div class="small mb-1" th:text="${b.userName}">작성자</div>
-                <div class="text-muted smaller" th:text="${#dates.format(b.createdAt,'yyyy.MM.dd')}">작성일</div>
+                <div class="text-muted smaller" th:text="${#temporals.format(b.createdAt, 'yyyy.MM.dd')}">작성일</div>
             </div>
             
             <div class="text-center bg-secondary-subtle rounded-3" style="min-width: 50px; height: 70px;">
