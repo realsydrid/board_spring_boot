@@ -35,6 +35,9 @@
     <hr>
     <a href="./signUp.do" class="button">회원가입</a>
 </div>
+<script th:if="${signUpSuccess}">
+    alert('가입성공!')
+</script>
 
 </body>
 </html>

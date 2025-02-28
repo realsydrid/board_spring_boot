@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
@@ -26,9 +27,10 @@ public class UserController {
     }
 
     @PostMapping("signUp.do")
-    public String signUp(Model model,User user) {
+    public String signUp(Model model,User user,  RedirectAttributes redirectAttributes) {
         boolean result=userServiceImp.signUp(user);
         if (result){
+            redirectAttributes.addFlashAttribute("signUpSuccess", true);
             return "redirect:/user/login.do";
         }
         model.addAttribute("isExistId", true);
