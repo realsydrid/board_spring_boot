@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -28,6 +29,15 @@ public class User {
 
     @Column(name = "phone_no", nullable = false)
     private String phoneNo;
+
+    @Column(name = "created_at" , nullable = false)
+    private LocalDateTime createdAt;
+
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 
     @OneToMany(mappedBy = "userNo")
     private Set<Board> boards = new LinkedHashSet<>();

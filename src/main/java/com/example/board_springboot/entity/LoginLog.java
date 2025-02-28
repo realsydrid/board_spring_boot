@@ -22,6 +22,12 @@ public class LoginLog {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
+
+
     @Column(name = "ip_address", nullable = false)
     private String ipAddress;
 
@@ -31,5 +37,7 @@ public class LoginLog {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_no", nullable = false)
     private com.example.board_springboot.entity.User userNo;
+
+
 
 }

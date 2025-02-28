@@ -1,5 +1,6 @@
 package com.example.board_springboot.service;
 
+import com.example.board_springboot.dto.UserSessionDto;
 import com.example.board_springboot.entity.LoginLog;
 import com.example.board_springboot.entity.PasswordChangeLog;
 import com.example.board_springboot.entity.User;
@@ -17,7 +18,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserServiceImp implements UserService {
 
-//    UsersMapper usersMapper;
     private final UserRepository userRepository;
     private final LoginLogRepository loginLogRepository;
     private final PasswordChangeLogRepository passwordChangeLogRepository;
@@ -32,7 +32,6 @@ public class UserServiceImp implements UserService {
             PasswordChangeLog passwordChangeLog =new PasswordChangeLog();
             passwordChangeLog.setUserId(user.getUserId());
             passwordChangeLog.setChangedPassword(user.getPassword());
-            passwordChangeLog.setCreatedAt(LocalDateTime.now());
             passwordChangeLogRepository.save(passwordChangeLog);
             result = true;
         }
@@ -41,20 +40,17 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public boolean login(String userId, String password, String ipAddress, String browser) {
-        boolean login = false;
+    public UserSessionDto login(String userId, String password, String ipAddress, String browser) {
         User user = userRepository.findByUserId(userId);
         if (user != null && user.getPassword().equals(password)) {
             LoginLog loginLog = new LoginLog();
             loginLog.setUserNo(user);
             loginLog.setIpAddress(ipAddress);
             loginLog.setBrowser(parseBrowser(browser));
-            loginLog.setCreatedAt(LocalDateTime.now());
             loginLogRepository.save(loginLog);
-            
-            login = true;
+            return new UserSessionDto(user);
         }
-        return login;
+        return null;
     }
 
     private String parseBrowser(String userAgent) {

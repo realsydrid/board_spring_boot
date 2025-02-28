@@ -1,8 +1,11 @@
 package com.example.board_springboot.controller;
 
+import com.example.board_springboot.dto.UserSessionDto;
 import com.example.board_springboot.entity.User;
+import com.example.board_springboot.repository.UserRepository;
 import com.example.board_springboot.service.UserServiceImp;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
 
+    private final UserRepository userRepository;
     private UserServiceImp userServiceImp;
+
 
 
     @GetMapping("signUp.do")
@@ -39,23 +44,44 @@ public class UserController {
     }
 
     @GetMapping("login.do")
-    public String login(Model model) {
+    public String login(HttpSession session) {
+
+        if(session.getAttribute("userSessionDto") != null){
+            return "redirect:/";
+        }
         return "user/login";
     }
 
     @PostMapping("login.do")
     public String login(Model model, 
                        String userId, 
-                       String password, 
-                       HttpServletRequest request) {
+                       String password,
+                       HttpServletRequest request,
+                        RedirectAttributes redirectAttributes) {
         
         String ipAddress = request.getRemoteAddr();
         String browser = request.getHeader("User-Agent");
-        
-        boolean login = userServiceImp.login(userId, password, ipAddress, browser);
-        if (login) {
-            return "index";
+        UserSessionDto userSessionDto=userServiceImp.login(userId, password, ipAddress, browser);
+        if (userSessionDto!=null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("userSessionDto", userSessionDto);
+            session.setMaxInactiveInterval(60*30);
+            redirectAttributes.addFlashAttribute("loginSuccess", true);
+            return "redirect:/";
         }
-        return "user/login";
+        redirectAttributes.addFlashAttribute("loginError", true);
+        return "redirect:/user/login.do";
+    }
+    @GetMapping("myInfo.do")
+    public String myinfo(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSessionDto");
+        model.addAttribute("userName", userSessionDto.getUserName());
+        return "user/myInfo";
+    }
+    @GetMapping("logout.do")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

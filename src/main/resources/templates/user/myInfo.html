@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/default :: html(content=~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="pt-1">내정보</h1>
+  <p>이름 : <span th:text="${userName}"></span></p>
+</div>
+</body>
+</html>

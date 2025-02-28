@@ -14,7 +14,7 @@
           <a class="nav-link" href="#">미니게임</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="${session.user != null} ? '/user/mypage.do' : '/user/login.do'">
+          <a class="nav-link" th:href="${session.userSessionDto != null} ? '/user/myInfo.do' : '/user/login.do'">
             내정보
           </a>
         </li>
@@ -30,5 +30,10 @@
       <img th:src="@{/img/Apple_logo_black.svg}" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
       승엽사이트
     </a>
+    <div>
+      <span th:if="${session.userSessionDto}!=null" th:text="${session.userSessionDto.getUserName()}+'님 접속중'"></span>
+      <a th:if="${session.userSessionDto}!=null" href="/user/logout.do">로그아웃</a>
+
+    </div>
   </div>
 </nav>
