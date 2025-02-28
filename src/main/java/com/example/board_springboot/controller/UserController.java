@@ -1,6 +1,6 @@
 package com.example.board_springboot.controller;
 
-import com.example.board_springboot.model.Users;
+import com.example.board_springboot.entity.User;
 import com.example.board_springboot.service.UserServiceImp;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,7 @@ public class UserController {
 
     private UserServiceImp userServiceImp;
 
+
     @GetMapping("signUp.do")
     public String signUp(Model model) {
 
@@ -25,13 +26,12 @@ public class UserController {
     }
 
     @PostMapping("signUp.do")
-    public String signUp(Model model,
-                         Users user
-                         ) {
-
-
-        userServiceImp.signUp(user);
-
+    public String signUp(Model model,User user) {
+        boolean result=userServiceImp.signUp(user);
+        if (result){
+            return "redirect:/user/login.do";
+        }
+        model.addAttribute("isExistId", true);
         return "user/signUp";
     }
 

@@ -1,7 +1,7 @@
 package com.example.board_springboot.service;
 
-import com.example.board_springboot.mapper.BoardsMapper;
-import com.example.board_springboot.model.Boards;
+import com.example.board_springboot.entity.Board;
+import com.example.board_springboot.repository.BoardRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardsServiceImp  implements BoardsService {
 
-    BoardsMapper boardsMapper;
+
+    BoardRepository boardRepository;
 
     @Override
-    public List<Boards> readAll() {
-        return boardsMapper.findAllBoards();
+    public List<Board> readAll() {
+        return boardRepository.findAll();
     }
 }
