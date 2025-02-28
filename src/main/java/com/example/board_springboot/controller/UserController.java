@@ -2,14 +2,15 @@ package com.example.board_springboot.controller;
 
 import com.example.board_springboot.entity.User;
 import com.example.board_springboot.service.UserServiceImp;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @AllArgsConstructor
@@ -43,11 +44,16 @@ public class UserController {
     }
 
     @PostMapping("login.do")
-    public String login(Model model, String userId, String password) {
-
-        boolean login = userServiceImp.login(userId, password);
+    public String login(Model model, 
+                       String userId, 
+                       String password, 
+                       HttpServletRequest request) {
+        
+        String ipAddress = request.getRemoteAddr();
+        String browser = request.getHeader("User-Agent");
+        
+        boolean login = userServiceImp.login(userId, password, ipAddress, browser);
         if (login) {
-            System.out.println("로그인성공");
             return "index";
         }
         return "user/login";

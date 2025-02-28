@@ -4,7 +4,7 @@ import com.example.board_springboot.entity.User;
 
 public interface UserService {
     boolean signUp(User user);
-    boolean login(String userId, String password);
-    boolean isExistUserId(String userId);
+    boolean login(String userId, String password, String ipAddress, String browser);
+
 
 }
