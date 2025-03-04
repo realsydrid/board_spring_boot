@@ -12,9 +12,15 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "boards", schema = "board_springboot")
 public class Board {
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id", nullable = false)
+    @Column(name = "board_no", nullable = false)
     private Integer id;
 
     @Column(name = "title", nullable = false)
@@ -32,6 +38,8 @@ public class Board {
     @JoinColumn(name = "user_no", nullable = false)
     @ToString.Exclude
     private com.example.board_springboot.entity.User user;
+
+
 
 
 

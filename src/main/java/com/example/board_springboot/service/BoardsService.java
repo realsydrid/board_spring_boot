@@ -10,6 +10,7 @@ import java.util.List;
 public interface BoardsService {
     List<Board> readAll();
     List<Board> getBoardsByUserNo(int userNo);
+    boolean writeBoard(Board board);
 
 
 

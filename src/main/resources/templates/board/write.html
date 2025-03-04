@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/default :: html(content=~{::body})}"><head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container mt-5">
+  <h1>글쓰기</h1>
+
+<form action="write.do" method="post">
+  <div class="mb-3">
+    <label for="title"></label>
+    <input type="text" name="title" id="title"
+           class="w-100" placeholder="제목을 입력해주세요">
+  </div>
+  <div class="mb-3">
+    <label for="content"></label>
+    <input type="text" name="content" id="content"
+           class="w-100" style="height: 50px" placeholder="내용을 입력해주세요">
+  </div>
+  <div>
+    <a href="/board/boardHome.do">취소</a>
+  <button type="submit">제출</button>
+
+  </div>
+</form>
+</div>
+
+</body>
+</html>

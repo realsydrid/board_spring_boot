@@ -9,9 +9,10 @@
 <div class="container mt-5">
     <h1 class="pt-1">자유게시판</h1>
     <p><a href="/board/searchByUserNo.do">검색테스트</a></p>
+    <p><a th:href="${session.userSessionDto != null} ? '/board/write.do' : '/user/login.do'">글쓰기</a></p>
     
     <div th:each="b: ${boardsList}" class="border-bottom py-3">
-        <a href="#" class="text-decoration-none text-dark d-flex align-items-start">
+        <a th:href="@{/board/detail.do(id=${b.id})}" class="text-decoration-none text-dark d-flex align-items-start">
             <div class="flex-grow-1">
                 <h5 class="mb-1 text-truncate" style="max-width: 300px;" th:text="${b.title}">게시글 제목</h5>
                 <div class="small mb-1" th:text="${b.user.userName}">작성자</div>

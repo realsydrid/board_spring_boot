@@ -16,11 +16,21 @@ public class BoardsServiceImp  implements BoardsService {
 
     @Override
     public List<Board> readAll() {
-        return boardRepository.findAll();
+        return boardRepository.findAllByOrderByIdDesc();
     }
 
     @Override
     public List<Board> getBoardsByUserNo(int userNo) {
         return boardRepository.findByUser_Id(userNo);
+    }
+
+    @Override
+    public boolean writeBoard(Board board) {
+        boolean result = false;
+        if (board.getTitle() == null || board.getContent() == null) {
+            return false;
+        }
+        boardRepository.save(board);
+        return result;
     }
 }
