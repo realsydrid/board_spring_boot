@@ -2,6 +2,7 @@ package com.example.board_springboot.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
@@ -29,9 +30,9 @@ public class Board {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_no", nullable = false)
-    private com.example.board_springboot.entity.User userNo;
+    @ToString.Exclude
+    private com.example.board_springboot.entity.User user;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+
 
 }

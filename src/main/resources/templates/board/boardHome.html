@@ -8,12 +8,13 @@
 <body>
 <div class="container mt-5">
     <h1 class="pt-1">자유게시판</h1>
+    <p><a href="/board/searchByUserNo.do">검색테스트</a></p>
     
     <div th:each="b: ${boardsList}" class="border-bottom py-3">
         <a href="#" class="text-decoration-none text-dark d-flex align-items-start">
             <div class="flex-grow-1">
                 <h5 class="mb-1 text-truncate" style="max-width: 300px;" th:text="${b.title}">게시글 제목</h5>
-                <div class="small mb-1" th:text="${b.userName}">작성자</div>
+                <div class="small mb-1" th:text="${b.user.userName}">작성자</div>
                 <div class="text-muted smaller" th:text="${#temporals.format(b.createdAt, 'yyyy.MM.dd')}">작성일</div>
             </div>
             
@@ -23,6 +24,7 @@
             </div>
         </a>
     </div>
+
 </div>
 
 <style>

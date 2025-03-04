@@ -1,9 +1,14 @@
 package com.example.board_springboot.repository;
 
+import com.example.board_springboot.entity.Board;
 import com.example.board_springboot.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +27,12 @@ class UserRepositoryTest {
         userRepository.save(user);
 
 
+
+    }
+
+    @Test
+    @Transactional
+    void findById() {
 
     }
 }

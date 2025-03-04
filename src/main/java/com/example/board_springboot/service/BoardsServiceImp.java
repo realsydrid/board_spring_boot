@@ -18,4 +18,9 @@ public class BoardsServiceImp  implements BoardsService {
     public List<Board> readAll() {
         return boardRepository.findAll();
     }
+
+    @Override
+    public List<Board> getBoardsByUserNo(int userNo) {
+        return boardRepository.findByUser_Id(userNo);
+    }
 }

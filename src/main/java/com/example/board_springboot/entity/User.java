@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -39,10 +40,12 @@ public class User {
         createdAt = LocalDateTime.now();
     }
 
-    @OneToMany(mappedBy = "userNo")
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<Board> boards = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "userNo")
+    @ToString.Exclude
     private Set<LoginLog> loginLogs = new LinkedHashSet<>();
 
 }
