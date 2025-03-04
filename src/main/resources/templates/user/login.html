@@ -9,6 +9,7 @@
 <div class="container mt-5">
     <h1 class="pt-1">로그인</h1>
     <form action="./login.do" method="post">
+        <input type="hidden" th:value="${redirect}" name="redirect">
         <div class="form-floating mb-3">
             <input type="text" name="userId" class="form-control" id="userId" placeholder="아이디" th:value="${rememberedId}">
             <label for="userId">아이디</label>
@@ -31,6 +32,7 @@
 
             </div>
         </div>
+
     </form>
     <hr>
     <a href="./signUp.do" class="button">회원가입</a>

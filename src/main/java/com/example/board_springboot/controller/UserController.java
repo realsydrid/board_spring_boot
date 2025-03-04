@@ -28,7 +28,6 @@ public class UserController {
     private UserServiceImp userServiceImp;
 
 
-
     @GetMapping("signUp.do")
     public String signUp(Model model) {
 
@@ -36,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping("signUp.do")
-    public String signUp(Model model,User user,  RedirectAttributes redirectAttributes) {
-        boolean result=userServiceImp.signUp(user);
-        if (result){
+    public String signUp(Model model, User user, RedirectAttributes redirectAttributes) {
+        boolean result = userServiceImp.signUp(user);
+        if (result) {
             redirectAttributes.addFlashAttribute("signUpSuccess", true);
             return "redirect:/user/login.do";
         }
@@ -47,9 +46,14 @@ public class UserController {
     }
 
     @GetMapping("login.do")
-    public String login(HttpSession session, HttpServletRequest httpServletRequest, Model model) {
-
-        Cookie[] cookies=httpServletRequest.getCookies();
+    public String login(HttpSession session,
+                        HttpServletRequest httpServletRequest,
+                        Model model,
+                        @RequestParam(required = false) String redirect) {
+        if (redirect != null) {
+            model.addAttribute("redirect", redirect);
+        }
+        Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("rememberedId")) {
@@ -60,7 +64,7 @@ public class UserController {
         }
 
 
-        if(session.getAttribute("userSessionDto") != null){
+        if (session.getAttribute("userSessionDto") != null) {
             return "redirect:/";
         }
         return "user/login";
@@ -70,23 +74,24 @@ public class UserController {
     public String login(Model model,
                         String userId,
                         String password,
-                        @RequestParam(required = false, defaultValue = "false")  boolean remember_id,
+                        @RequestParam(required = false, defaultValue = "false") boolean remember_id,
+                        @RequestParam(required = false) String redirect,
                         HttpServletRequest request,
                         RedirectAttributes redirectAttributes, HttpServletResponse httpServletResponse) {
-        
+
         String ipAddress = request.getRemoteAddr();
         String browser = request.getHeader("User-Agent");
-        UserSessionDto userSessionDto=userServiceImp.login(userId, password, ipAddress, browser);
-        if (userSessionDto!=null) {
+        UserSessionDto userSessionDto = userServiceImp.login(userId, password, ipAddress, browser);
+        if (userSessionDto != null) {
 
             //아이디기억하기
             if (remember_id) {
                 Cookie rememberedIdCookie = new Cookie("rememberedId", userId);
                 rememberedIdCookie.setPath("/");
-                rememberedIdCookie.setMaxAge(60*60*24*30);
+                rememberedIdCookie.setMaxAge(60 * 60 * 24 * 30);
                 httpServletResponse.addCookie(rememberedIdCookie);
 
-            }else {
+            } else {
                 Cookie rememberedIdCookie = new Cookie("rememberedId", userId);
                 rememberedIdCookie.setPath("/");
                 rememberedIdCookie.setMaxAge(0);
@@ -95,13 +100,19 @@ public class UserController {
 
             HttpSession session = request.getSession();
             session.setAttribute("userSessionDto", userSessionDto);
-            session.setMaxInactiveInterval(60*30);
+            session.setMaxInactiveInterval(60 * 30);
             redirectAttributes.addFlashAttribute("loginSuccess", true);
+            if (redirect != null) {
+                return "redirect:"+redirect;
+            }else {
+
             return "redirect:/";
+            }
         }
         redirectAttributes.addFlashAttribute("loginError", true);
         return "redirect:/user/login.do";
     }
+
     @GetMapping("myInfo.do")
     public String myinfo(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -109,6 +120,7 @@ public class UserController {
         model.addAttribute("userName", userSessionDto.getUserName());
         return "user/myInfo";
     }
+
     @GetMapping("logout.do")
     public String logout(HttpSession session) {
         session.invalidate();
